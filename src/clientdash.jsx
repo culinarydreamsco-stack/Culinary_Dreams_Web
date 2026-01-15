@@ -21,6 +21,7 @@ import {
 } from 'recharts';
 import { useNavigate } from 'react-router-dom';
 import { useRemind } from './RemindContext';
+import { useInventory } from './InventoryContext';
 
 
 
@@ -34,39 +35,14 @@ const salesData = [
   { name: 'Sun', sales: 8490 },
 ];
 
-const inventoryData = [
-  { name: 'Flour (kg)', amount: 80},
-  { name: 'Sugar (kg)', amount: 10},
-  { name: 'Pkg Boxes', amount: 20 }, 
-  { name: 'Oil (L)', amount: 15 },
-];
-
-const Checkinventory=(inventory) =>{
-  lowstocknumber=0;
-  for(i=0;i<inventory.length;i++){
-    if(inventory[i].amount<25){
-      inventory[i].lowstock=true;
-      lowstocknumber++;
-    }
-  }
-  return(
-    <div>
-      <h3 className="text-2xl font-bold text-gray-900">1 Low Stock</h3>
-      {inventory.map((goods)=>(
-        goods.lowstock && (
-
-          <p className="text-xs text-red-500 mt-2">{goods.name} &lt; {goods.amount}%</p>
-        )
-      ))}
-    </div>
-  )
 
 
-}
+
 
 const Clientdash = () => {
   const {remind, setRemind}=useRemind();
   const navigate = useNavigate();
+  const { inventoryData}=useInventory();
   const lowStockItems = inventoryData.filter(item => item.amount < 25);
   const lowStockCount = lowStockItems.length;
 

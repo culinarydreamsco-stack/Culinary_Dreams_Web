@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Package, ShoppingCart, AlertCircle } from 'lucide-react';
+import { useInventory } from './InventoryContext';
 
 const OrderPage = () => {
   const navigate = useNavigate();
   const { itemName } = useParams();
   const location = useLocation();
+  const { updateStock }=useInventory();
   
   
   const { fullLabel, currentQuantity } = location.state || {};
@@ -14,6 +16,8 @@ const OrderPage = () => {
   const [orderAmount, setOrderAmount] = useState('');
 
   const handleOrder = () => {
+    updateStock(itemName,orderAmount);
+
     alert(`Order placed for ${orderAmount} units of ${itemName}!`);
     
     navigate(-1); 
