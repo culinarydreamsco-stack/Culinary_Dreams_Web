@@ -70,6 +70,20 @@ const Clientdash = () => {
   const lowStockItems = inventoryData.filter(item => item.amount < 25);
   const lowStockCount = lowStockItems.length;
 
+  const handleBarClick = (data)=>{
+    const rawMaterialName = data.name;
+
+    navigate(`/order/${rawMaterialName}`,{
+      state:{
+        fullLabel: data.name,
+        currentQuantity: data.amount
+      }
+    })
+
+    
+
+  }
+
   return (
     <div className="flex h-screen bg-gray-100 font-sans">
       
@@ -186,7 +200,7 @@ const Clientdash = () => {
 
               {remind==1 && (
                 <div className="mt-auto pt-4 flex justify-end">
-                <button onClick={()=>setRemind(0)}className="bg-cdGold text-white px-4 py-2 rounded shadow-lg">
+                <button onClick={()=>{alert(`Paid Succesfully!`);setRemind(0);}}className="bg-cdGold text-white px-4 py-2 rounded shadow-lg">
                   Pay Dues
                 </button>
                 </div>
@@ -197,7 +211,7 @@ const Clientdash = () => {
 
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-            {/* Main Revenue Chart */}
+            
             <div className="bg-white p-6 rounded-xl shadow-sm lg:col-span-2">
               <h3 className="text-lg font-bold text-cdBlue mb-4">Weekly Revenue</h3>
               <div className="h-64">
@@ -218,12 +232,12 @@ const Clientdash = () => {
               <h3 className="text-lg font-bold text-cdBlue mb-4">Inventory Levels</h3>
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={inventoryData} layout="vertical">
+                  <BarChart data={inventoryData} layout="vertical" style={{cursor:'pointer'}}>
                     <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
                     <XAxis type="number" hide />
                     <YAxis dataKey="name" type="category" width={80} tick={{fontSize: 12}} />
                     <Tooltip />
-                    <Bar dataKey="amount" fill="#C49A01" radius={[0, 4, 4, 0]} barSize={20} />
+                    <Bar dataKey="amount" fill="#C49A01" radius={[0, 4, 4, 0]} barSize={20} onClick={handleBarClick}/>
                   </BarChart>
                 </ResponsiveContainer>
               </div>

@@ -14,7 +14,7 @@ import { motion } from 'framer-motion';
 import { Routes, Route, Link } from 'react-router-dom';
 import Clientdash from './clientdash';
 import AdminDashboard from './AdminDashboard';
-
+import OrderPage from './Order';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -322,6 +322,7 @@ function App() {
       <Route path="/" element={<Landing />} />
       <Route path="/dashboard" element={<Clientdash/>} />
       <Route path="/admin" element={<AdminDashboard />} />
+      <Route path="/order/:itemName" element={<OrderPage />} />
     </Routes>
   );
 }

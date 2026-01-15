@@ -50,6 +50,11 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const {remind, setRemind}=useRemind();
 
+  const handleRemind = () => {
+    alert(`Rminder Sent!`);
+    setRemind(1);
+  }
+
 
   
   const getStatusStyle = (status) => {
@@ -185,7 +190,7 @@ const AdminDashboard = () => {
                         </td>
                         <td className="px-6 py-4">
                            {client.status !== 'Paid' && (
-                             <button onClick={()=> setRemind(1)} className="text-xs bg-cdBlue text-white px-2 py-1 rounded hover:bg-gray-800">
+                             <button onClick={()=> handleRemind()} className="text-xs bg-cdBlue text-white px-2 py-1 rounded hover:bg-gray-800">
                                Remind
                              </button>
                            )}
